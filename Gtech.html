@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-Tech Designs </title>
+
+<style>
+    
+body{font-family:Arial, Helvetica, sans-serif;margin:0;background:#f5f5f5;scroll-behavior:smooth;transition:0.4s}
+.dark{background:#0a41c2;color:white}
+
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.feature-box {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transition: 0.4s;
+  transform: translateY(40px); /* start lower */
+  animation: slideOnly 1s forwards;
+}
+
+/* Slide delays for sequential effect */
+.feature-box:nth-child(1) { animation-delay: 0s; }
+.feature-box:nth-child(2) { animation-delay: 0.2s; }
+.feature-box:nth-child(3) { animation-delay: 0.4s; }
+.feature-box:nth-child(4) { animation-delay: 0.6s; }
+.feature-box:nth-child(5) { animation-delay: 0.8s; }
+
+.feature-box:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+@keyframes slideOnly {
+  to {
+    transform: translateY(0); /* slide up */
+  }
+}
+
+header{background:#0f172a;color:white;padding:20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+nav a{color:white;margin:0 12px;text-decoration:none;font-weight:bold}
+nav a:hover{color:#1e90ff}
+
+.hero{background:linear-gradient(120deg,#0f172a,#111827);color:white;text-align:center;padding:100px 20px}
+.hero h1{font-size:44px;margin-bottom:10px;animation:fadeIn 2s}
+
+.btn{background:#18d174;color:white;padding:12px 25px;text-decoration:none;border-radius:6px;display:inline-block;margin-top:20px}
+.btn:hover{background:#15c070}
+
+.section{padding:60px 20px;text-align:center}
+
+
+.slider{position:relative;max-width:900px;margin:auto;overflow:hidden;border-radius:12px}
+.slides{display:flex;transition:transform 0.5s}
+.slide{min-width:100%}
+.slide img{width:100%;display:block}
+
+.search-box{margin-top:20px}
+.search-box input{padding:10px;width:250px;border-radius:6px;border:1px solid #ccc}
+
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;margin-top:30px}
+.card{background:white;border-radius:12px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:0.4s}
+.card:hover{transform:translateY(-10px) scale(1.02)}
+.card img{width:100%;border-radius:10px}
+.price{font-weight:bold;margin:10px 0}
+
+button{background:#0dc93c;color:white;border:none;padding:10px 20px;border-radius:6px;cursor:pointer}
+button:hover{background:#1e90ff}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:25px;margin-top:30px}
+.feature-box{background:white;padding:25px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);animation:flyUp 1s}
+
+.categories{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px}
+.category{background:#1e90ff;color:white;padding:20px 30px;border-radius:10px;transition:0.4s}
+.category:hover{transform:scale(1.1)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;margin-top:40px}
+.stat{background:white;padding:30px;border-radius:10px;font-size:22px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:30px}
+.testimonial{background:white;padding:20px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+
+.cart{position:fixed;top:90px;right:20px;background:white;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);width:220px}
+
+.popup{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1e90ff;color:white;padding:12px 25px;border-radius:6px;display:none}
+
+.contact input,.contact textarea{width:80%;padding:12px;margin:10px;border:1px solid #ccc;border-radius:6px}
+
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 18px;border-radius:50px;text-decoration:none;font-weight:bold}
+
+footer{background:#0f172a;color:white;text-align:center;padding:30px;margin-top:40px}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes flyUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+
+<body>
+
+<div class="popup" id="popup">Added to cart</div>
+
+<header>
+<div class="logo"><img src="images/GG-removebg-preview (2).png" alt="G-Tech Logo" style="height:140px"></div>
+<nav>
+<a href="#">Home</a>
+<a href="#features">Features</a>
+<a href="#shop">Shop</a>
+<a href="#categories">Categories</a>
+<a href="#about">About</a>
+<a href="#join-team">Join us</a>
+</nav>
+<button onclick="toggleMode()">🌙</button>
+</header>
+
+<section class="hero">
+<h1>Creative Digital Designs</h1>
+<p>Logos, Templates, Posters & Branding Kits</p>
+<a class="btn" href="#shop">Shop Now</a>
+</section>
+
+<section class="section">
+<h2>Featured Designs</h2>
+<div class="slider">
+<div class="slides" id="slides">
+<div class="slide"><img src="https://dynamic.brandcrowd.com/asset/logo/d8900c1f-676e-408f-8f72-44eee417737c/logo-search-grid-2x?logoTemplateVersion=2&v=638543810302670000"></div>
+<div class="slide"><img src="https://i.etsystatic.com/21022362/r/il/4975f9/4147592734/il_1080xN.4147592734_ta2g.jpg"></div>
+<div class="slide"><img src="https://www.pngkit.com/png/full/109-1090482_custom-web-design-png-logo-for-web-design.png"></div>
+</div>
+</div>
+</section>
+
+
+<section id="features" class="section">
+
+<h2>Why Choose G-Tech Designs</h2>
+
+<div class="features">
+
+<div class="feature-box">⚡ Fast Delivery</div>
+<div class="feature-box">🎨 Modern Designs</div>
+<div class="feature-box">💻 Web & Graphic Design</div>
+<div class="feature-box">📱 Social Media Kits</div>
+<div class="feature-box">🔒 Secure Purchase</div>
+<div class="feature-box">🌍 Worldwide Clients</div>
+
+</div>
+
+</section>
+</div>
+</section>
+
+<section id="shop" class="section">
+<h2>Products</h2>
+<div class="search-box">
+<input type="text" id="search" placeholder="Search product..." onkeyup="searchProduct()">
+</div>
+
+<div class="products" id="productList">
+
+<div class="card">
+<img src="https://www.buttercup.in/case-studies/wp-content/uploads/2019/02/logo-design-1.jpg">
+<h3>Logo Design Pack</h3>
+<p class="price">$10</p>
+<button onclick="addCart('Logo Design Pack',10)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.reallygooddesigns.com/2024/11/creative-website-designs.jpg">
+<h3>Website Template</h3>
+<p class="price">$25</p>
+<button onclick="addCart('Website Template',25)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://static.vecteezy.com/system/resources/previews/014/045/055/large_2x/corporate-business-flyer-creativetemplate-vector.jpg">
+<h3>Poster Design</h3>
+<p class="price">$8</p>
+<button onclick="addCart('Poster Design',8)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/9d65c1105427513.5f79bd1e11ad2.jpg">
+<h3>Social Media Kit</h3>
+<p class="price">$12</p>
+<button onclick="addCart('Social Media Kit',12)">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<div class="cart" style="background:white;padding:20px;border-radius:10px;margin-top:80px;box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+
+<h3>🛒 Your Cart</h3>
+
+<ul id="cartItems"></ul>
+
+<button onclick="sendToWhatsApp()" style="padding:10px 20px;background:#25D366;color:white;border:none;border-radius:5px;cursor:pointer;">
+Order via WhatsApp
+</button>
+
+</div>
+
+<section id="categories" class="section">
+<h2>Categories</h2>
+<div class="categories">
+<div class="category">Logo Designs</div>
+<div class="category">Website Templates</div>
+<div class="category">Posters</div>
+<div class="category">Brand Kits</div>
+</div>
+</section>
+
+<section class="section achievements">
+  
+  <style>
+    .achievements {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f9f9f9;
+    }
+
+    .achievements h2 {
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      color: #333;
+    }
+
+    .achievements .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .achievements .stat {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      min-width: 180px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .achievements .stat:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .achievements .stat .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .achievements .stat .number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #25D366; 
+      margin-bottom: 5px;
+    }
+
+    .achievements .stat .label {
+      font-size: 1rem;
+      color: #555;
+    }
+  </style>
+
+  <h2>Our Achievements</h2>
+  <div class="stats">
+    <div class="stat">
+      <div class="icon">🎯</div>
+      <div class="number" data-target="500">0</div>
+      <div class="label">Clients</div>
+    </div>
+    <div class="stat">
+      <div class="icon">🎨</div>
+      <div class="number" data-target="1200">0</div>
+      <div class="label">Designs</div>
+    </div>
+    <div class="stat">
+      <div class="icon">💻</div>
+      <div class="number" data-target="4">0</div>
+      <div class="label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="icon">⭐</div>
+      <div class="number" data-target="98">0</div>
+      <div class="label">Satisfaction</div>
+    </div>
+  </div>
+
+  <!-- JavaScript for count-up animation -->
+  <script>
+    function animateNumbers() {
+      const numbers = document.querySelectorAll(".achievements .number");
+      
+      numbers.forEach(num => {
+        const target = +num.getAttribute("data-target");
+        let count = 0;
+        const increment = target / 100; // 100 steps
+        const interval = setInterval(() => {
+          count += increment;
+          if(count >= target) {
+            num.textContent = target;
+            clearInterval(interval);
+          } else {
+            num.textContent = Math.ceil(count);
+          }
+        }, 20); // update every 20ms
+      });
+    }
+
+    // Animate when section scrolls into view
+    const achievementsSection = document.querySelector(".achievements");
+    let animated = false;
+    window.addEventListener("scroll", () => {
+      const sectionTop = achievementsSection.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+      if(sectionTop < screenHeight && !animated){
+        animateNumbers();
+        animated = true;
+      }
+    });
+  </script>
+</section>
+
+<section class="section" style="padding: 40px; background-color: #f9f9f9;">
+  <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">What Our Clients Say</h2>
+  <div class="testimonials" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+    
+    <div class="testimonial-card" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 250px; text-align: center;">
+      <p style="font-style: italic; color: #34495e;">"Amazing logo design!"</p>
+      <p style="color: #f1c40f; font-weight: bold;">⭐⭐⭐⭐⭐</p>
+    </div>
+    
+    <div class="testimonial-card" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 250px; text-align: center;">
+      <p style="font-style: italic; color: #34495e;">"Great creativity and ideas!"</p>
+      <p style="color: #f1c40f; font-weight: bold;">⭐⭐⭐⭐⭐</p>
+    </div>
+    
+    <div class="testimonial-card" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 250px; text-align: center;">
+      <p style="font-style: italic; color: #34495e;">"Very professional and fast service."</p>
+      <p style="color: #f1c40f; font-weight: bold;">⭐⭐⭐⭐⭐</p>
+    </div>
+    
+  </div>
+</section>
+
+<section id="about" class="section">
+<h2>About G-Tech Designs</h2>
+<p>We create modern digital designs for brands, startups and businesses worldwide.</p>
+</section>
+
+<!-- Add this in your <head> to use Font Awesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<section id="join-team" class="section join-team" style="padding: 40px; background-color: #f0f8ff;">
+  <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">Join Our Team</h2>
+  
+  <div style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+    
+    <div style="position: relative;">
+      <i class="fa-solid fa-user" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #3498db;"></i>
+      <input id="name" type="text" placeholder="Full Name" style="padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+      <div id="nameError" style="color: red; font-size: 12px; margin-top: 3px;"></div>
+    </div>
+    
+    <div style="position: relative;">
+      <i class="fa-solid fa-envelope" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #3498db;"></i>
+      <input id="email" type="email" placeholder="Email" style="padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+      <div id="emailError" style="color: red; font-size: 12px; margin-top: 3px;"></div>
+    </div>
+    
+    <div style="position: relative;">
+      <i class="fa-solid fa-phone" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #3498db;"></i>
+      <input id="phone" type="tel" placeholder="Phone Number" style="padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+      <div id="phoneError" style="color: red; font-size: 12px; margin-top: 3px;"></div>
+    </div>
+    
+    <div style="position: relative;">
+      <i class="fa-solid fa-briefcase" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #3498db;"></i>
+      <input id="profession" type="text" placeholder="Profession" style="padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+      <div id="professionError" style="color: red; font-size: 12px; margin-top: 3px;"></div>
+    </div>
+    
+    <button id="joinBtn" style="padding: 12px; border-radius: 8px; border: none; background-color: #3498db; color: white; font-weight: bold; cursor: pointer;">
+      Join Now
+    </button>
+  </div>
+</section>
+
+<script>
+const joinBtn = document.getElementById('joinBtn');
+
+joinBtn.addEventListener('click', (e) => {
+  e.preventDefault(); // stop page refresh
+
+  // Get input elements
+  const name = document.getElementById('name');
+  const email = document.getElementById('email');
+  const phone = document.getElementById('phone');
+  const profession = document.getElementById('profession');
+
+  let valid = true;
+
+  // Clear previous errors and reset borders
+  ['name','email','phone','profession'].forEach(id=>{
+    document.getElementById(id+'Error').innerHTML = '';
+    document.getElementById(id).style.border = '1px solid #ccc';
+  });
+
+  // Validate each field
+  if(name.value.trim() === ''){
+    document.getElementById('nameError').innerHTML = 'Please fill this place';
+    name.style.border = '2px solid red';
+    valid = false;
+  }
+  if(email.value.trim() === ''){
+    document.getElementById('emailError').innerHTML = 'Please fill this place';
+    email.style.border = '2px solid red';
+    valid = false;
+  }
+  if(phone.value.trim() === ''){
+    document.getElementById('phoneError').innerHTML = 'Please fill this place';
+    phone.style.border = '2px solid red';
+    valid = false;
+  }
+  if(profession.value.trim() === ''){
+    document.getElementById('professionError').innerHTML = 'Please fill this place';
+    profession.style.border = '2px solid red';
+    valid = false;
+  }
+
+  if(!valid) return; // stop if any field empty
+
+  // Open WhatsApp
+  const message = `Hello! I want to join your team.%0AName: ${name.value}%0AEmail: ${email.value}%0APhone: ${phone.value}%0AProfession: ${profession.value}`;
+  const whatsappURL = `https://wa.me/254707189911?text=${message}`;
+  window.open(whatsappURL, '_blank');
+});
+</script>
+
+<a class="whatsapp" href="https://wa.me/254707189911">WhatsApp</a>
+
+<footer>
+<p>© 2026 G-Tech Designs</p>
+</footer>
+
+<script>
+
+function addCart(product){
+let li=document.createElement("li")
+li.textContent=product
+
+document.getElementById("cartItems").appendChild(li)
+
+let popup=document.getElementById("popup")
+popup.style.display="block"
+setTimeout(()=>{popup.style.display="none"},1500)
+}
+
+function searchProduct(){
+let input=document.getElementById("search").value.toLowerCase()
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(card=>{
+let title=card.querySelector("h3").textContent.toLowerCase()
+card.style.display=title.includes(input)?"block":"none"
+})
+}
+
+function toggleMode(){
+document.body.classList.toggle("dark")
+}
+
+let index=0
+function slide(){
+let slides=document.getElementById("slides")
+index++
+if(index>2)index=0
+slides.style.transform="translateX(-"+(index*100)+"%)"
+}
+setInterval(slide,3000)
+
+</script>
+<script>
+function sendToWhatsApp() {
+    let cartItems = document.querySelectorAll("#cartItems li"); 
+    if(cartItems.length === 0){
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let itemsList = [];
+    cartItems.forEach(item => {
+        itemsList.push(item.textContent.trim());
+    });
+
+    let phoneNumber = "254707189911"; 
+    let message = "Hello! I would like to order:\n" + itemsList.join("\n");
+
+    let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+}
+</script>
+
+</script>
+</body>
+</html>
